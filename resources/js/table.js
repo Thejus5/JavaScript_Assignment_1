@@ -1,19 +1,21 @@
-
+let tableHeads 
+let tableContent
 /*------------------- Table Header loading fn -------------------*/
 
-let tableHeadLoader = function (headerList, order, callback) {
+let tableHeadLoader = function (headerList) {
   if (headerList) {  // Checks whether a table exists.
+    tableHeads = headerList
     let headRow = document.createElement("tr") 
 
     for (let headValue of headerList) {
       let headElement = document.createElement("th")
 
       // Check the table sorting direction and add class name accordingly.
-      if (order == "asc") {
-        headElement.className += "asc"
-      } else {
-        headElement.className += "des"
-      }
+      // if (order == "asc") {
+      //   headElement.className += "asc"
+      // } else {
+      //   headElement.className += "des"
+      // }
 
       // Adding text content and data attribute to 'th' element
       headElement.textContent = headValue.tittle 
@@ -25,10 +27,10 @@ let tableHeadLoader = function (headerList, order, callback) {
       if (headValue.sortable == true) {
 
         let upArrow = document.createElement('i')
-        upArrow.className = `${headValue.id}UpArrow up Arrow` 
+        upArrow.className = 'up Arrow' 
 
         let downArrow = document.createElement('i')
-        downArrow.className = `${headValue.id}DownArrow down Arrow` 
+        downArrow.className = 'down Arrow'
 
         headElement.appendChild(upArrow)
         headElement.appendChild(downArrow) 
@@ -37,54 +39,91 @@ let tableHeadLoader = function (headerList, order, callback) {
       headRow.appendChild(headElement) 
     }
 
-    callback(headRow) 
+    // Insert tr into thead
+    let tableHead = document.querySelector('thead')
+    tableHead.appendChild(headRow)
+
+    bindEventListener(tableHead)
 
   }
+}
+
+/*------------------- Event listener for table headers loading fn -*/
+function bindEventListener(tableHead){
+
+  tableHead.addEventListener("click", function (e){
+    let header = e.target 
+    let clickedId = header.id
+
+    tableSort(header, function (newContentList) {
+      
+      // Icons (up and down)
+      let upArrow =document.querySelector(`.${clickedId}UpArrow`)
+      let downArrow = document.querySelector(`.${clickedId}DownArrow`)
+      
+
+      // determine current clicked header sort class name
+      let nextOrder 
+      if (!header.className || header.className == "asc") {
+        nextOrder = "des";
+      }
+      else{
+        nextOrder = "asc";
+      }
+
+      // reset all header sort classnames
+      clearHeaderSortClass();
+      header.className = nextOrder;
+
+      // Table body (re)loading
+      redraw(newContentList);
+    });
+  })
 }
 
 
 /*------------------- Table content loading fn -------------------*/
 
-let tableBodyLoader = function (tableBody, headerList, contentList) {
+let tableBodyLoader = function (contentList) {
   if (contentList) {  // Checks if any content present
-
-
+    tableContent = contentList
     for (let contentValue of contentList) {
       let rowElement = document.createElement("tr")
 
-      for (let headerValue of headerList) {
-        let columnElement = document.createElement("td") 
-        let key = headerValue.id 
-        let cellValue = contentValue[key] 
+      for (let headerValue of tableHeads) {
+        let columnElement = document.createElement("td");
+        let key = headerValue.id;
+        let cellValue = contentValue[key];
 
         if (headerValue.type == "link") {
-          let link = document.createElement("a") 
-          link.href = cellValue 
-          link.textContent = "Link" 
-          columnElement.appendChild(link) 
+          let link = document.createElement("a");
+          link.href = cellValue;
+          link.textContent = "Link";
+          columnElement.appendChild(link);
         } else if (headerValue.type == "button") {
           if (contentValue.status == "open") {
-            let btn = document.createElement("button") 
-            btn.textContent = "Apply Now" 
+            let btn = document.createElement("button");
+            btn.textContent = "Apply Now";
             btn.onclick = function (e) {
-              alert("Applies Successfully") 
-            } 
-            columnElement.appendChild(btn) 
+              alert("Applies Successfully");
+            };
+            columnElement.appendChild(btn);
           } else {
-            columnElement.textContent = " - " 
+            columnElement.textContent = " - ";
           }
         } else if (headerValue.type == "number" || headerValue.type == "date") {
-          columnElement.style.textAlign = "right" 
-          columnElement.textContent = cellValue 
-          columnElement.className = key 
+          columnElement.style.textAlign = "right";
+          columnElement.textContent = cellValue;
+          columnElement.className = key;
         } else {
-          columnElement.textContent = cellValue 
-          columnElement.className = key 
+          columnElement.textContent = cellValue;
+          columnElement.className = key;
         }
 
-        rowElement.appendChild(columnElement) 
+        rowElement.appendChild(columnElement);
       }
-      tableBody.appendChild(rowElement) 
+      let tableBody = document.querySelector('tbody')
+      tableBody.appendChild(rowElement)
     }
   }
   else {
@@ -92,86 +131,73 @@ let tableBodyLoader = function (tableBody, headerList, contentList) {
   }
 }
 
+// Re creating table body upon click__
+function redraw(newContentList){
+  document.querySelector("tbody").remove();
+  let table = document.querySelector('table')
+  table.appendChild(document.createElement('tbody'))
+  tableBodyLoader(newContentList)
+}
 
 /*------------------- Table sorting fn ------------------------*/
 
-let tableSort = function (header, contentList, callback) {
+let tableSort = function (header, callback) {
 
-  // See if the data is sortable number
-  if (
-    header.dataset["sortable"] == "true" &&
-    header.dataset["type"] == "number"
-  ) {
-    let element = document.querySelectorAll(`.${header.id}`) 
-    let valueList = [] 
+  if(header.dataset.sortable == 'true'){
+    let newContentList
+    const isNumber = header.dataset.type == "number"  // Checks if datatype is number or string
 
-    for (let each of element) {
-      valueList.push(parseInt(each.textContent)) 
+    if(!header.className || header.className == 'asc'){
+      newContentList = sortData(tableContent, header.id, isNumber);
+      // newContentList = 'check'
+    }
+    else if(header.className == 'des'){
+      newContentList = reverseData(tableContent, header.id, isNumber);
+      // newContentList = 'try'
     }
 
-    if (header.className == "asc") {
-      var nextOrder = "des" 
-      valueList.sort((a, b) => a - b) 
-      var newContentList = newContentCreator(valueList, contentList, header.id, nextOrder) 
-      callback(newContentList, nextOrder) 
-
-    } else {
-      var nextOrder = "asc" 
-      valueList.reverse((a, b) => a - b) 
-      var newContentList = newContentCreator(valueList, contentList, header.id, nextOrder) 
-      callback(newContentList, nextOrder) 
-    }
+    callback(newContentList)
   }
-  // See if the data is sortable strings
-  else if (
-    header.dataset["sortable"] == "true" &&
-    header.dataset["type"] == "string"
-  ) {
-    let element = document.querySelectorAll(`.${header.id}`) 
-    let valueList = [] 
-
-    for (let each of element) {
-      valueList.push(each.textContent) 
-    }
-
-    if (header.className == "asc") {
-      var nextOrder = "des" 
-      valueList.sort() 
-      var newContentList = newContentCreator(valueList, contentList, header.id, nextOrder) 
-      callback(newContentList, nextOrder) 
-    } else {
-      var nextOrder = "asc" 
-      valueList.reverse() 
-      var newContentList = newContentCreator(valueList, contentList, header.id, nextOrder) 
-      callback(newContentList, nextOrder) 
-    }
+  else{
+    console.log('Not Sortable')
+    return
   }
-  // See if the data is sortable date (string type)
-  else if (
-    header.dataset["sortable"] == "true" &&
-    header.dataset["type"] == "date"
-  ) {
-    let element = document.querySelectorAll(`.${header.id}`) 
-    let valueList = [] 
+  
+}
 
-    for (let each of element) {
-      valueList.push(each.textContent) 
-    }
+// Ascending sort__
+function sortData(tableData,key,isNumber){
+  const sortNumber = function (a, b) {
+    return a[key] - b[key];
+  };
+  const sortString = function (a, b) {
+    if (a[key] > b[key]) return 1;
+    else if (a[key] < b[key]) return -1;
+    else return 0;
+  };
+  const newData = tableData.sort(isNumber ? sortNumber : sortString);
+  return newData;
+}
 
-    if (header.className == "asc") {
-      var nextOrder = "des" 
-      valueList.sort() 
-      var newContentList = newContentCreator(valueList, contentList, header.id, nextOrder) 
-      callback(newContentList, nextOrder) 
-    } else {
-      let nextOrder = "asc" 
-      valueList.reverse() 
-      var newContentList = newContentCreator(valueList, contentList, header.id, nextOrder) 
-      callback(newContentList, nextOrder) 
-    }
+// Descending sort__
+function reverseData(tableData,key,isNumber){
+  const sortNumber = function (a, b) {
+    return a[key] - b[key];
+  };
+  const sortString = function (a, b) {
+    if (a[key] > b[key]) return 1;
+    else if (a[key] < b[key]) return -1;
+    else return 0;
+  };
+  const newData = tableData.reverse(isNumber ? sortNumber : sortString);
+  return newData;
+}
 
-  } else {
-    console.log("Not sortable") 
+
+function clearHeaderSortClass(){
+  const allHeaders = document.querySelectorAll("th");
+  for (let th of allHeaders) {
+    th.className = "";
   }
 }
 

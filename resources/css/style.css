@@ -206,6 +206,24 @@ td:last-child{ text-align: center; }
   display: flex;
 }
 
+/* Arrow icons on tables */
+table th[data-sortable="true"] .up,
+table th[data-sortable="true"] .down {
+  visibility: visible;
+}
+table th.asc .up {
+  visibility: visible;
+}
+table th.asc .down {
+  visibility: hidden;
+}
+table th.des .up {
+  visibility: hidden;
+}
+table th.des .down {
+  visibility: visible;
+}
+
 .Arrow {
   position: absolute;
   border: solid #fff;
