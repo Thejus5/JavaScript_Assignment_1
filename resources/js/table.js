@@ -10,13 +10,6 @@ let tableHeadLoader = function (headerList) {
     for (let headValue of headerList) {
       let headElement = document.createElement("th")
 
-      // Check the table sorting direction and add class name accordingly.
-      // if (order == "asc") {
-      //   headElement.className += "asc"
-      // } else {
-      //   headElement.className += "des"
-      // }
-
       // Adding text content and data attribute to 'th' element
       headElement.textContent = headValue.tittle
       headElement.setAttribute("data-type", headValue.type)
