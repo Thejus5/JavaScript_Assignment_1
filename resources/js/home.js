@@ -1,5 +1,5 @@
-import utils from './utils.js' 
-import tableFn from "./table.js" 
+import utils from './utils.js'
+import tableFn from "./table.js"
 
 let paraHeight
 let headerObj, contentObj
@@ -12,11 +12,11 @@ const imageArea = document.querySelector('.image-area')
 utils.jsonCaller('get', 'resources/json/homepage.json', function (object) {
   para.textContent = object.content
   // let headerObj = object.table
-  headerObj = object.table 
+  headerObj = object.table
 
   const image = document.createElement('img')
   image.src = object.image
-  image.className += 'content-img' 
+  image.className += 'content-img'
   imageArea.appendChild(image)
 
   paraResize()
@@ -26,25 +26,25 @@ utils.jsonCaller('get', 'resources/json/homepage.json', function (object) {
 
 4
 /*--------------- Table loading section ---------------*/
-let tableHeader = document.querySelector("thead") 
+let tableHeader = document.querySelector("thead")
 let tableBody = document.querySelector('tbody')
 
 function loadTable(headerObj) {
 
   if (headerObj) {  // Checks whether a tale exist
     let tableContainer = document.querySelector(".bottom-section")
-    const table = tableContainer.appendChild(document.createElement("table"));
-    table.appendChild(document.createElement("thead"));
-    table.appendChild(document.createElement("tbody"));
+    const table = tableContainer.appendChild(document.createElement("table"))
+    table.appendChild(document.createElement("thead"))
+    table.appendChild(document.createElement("tbody"))
 
     // Table header loading
-    tableFn.tableHeadLoader(headerObj) 
+    tableFn.tableHeadLoader(headerObj)
 
     // Table content loading
     utils.jsonCaller("get", "resources/json/vacancies.json", function (object) {
-      contentObj = object 
+      contentObj = object
       tableFn.tableBodyLoader(contentObj)
-    }) 
+    })
 
   }
 }
@@ -87,7 +87,7 @@ const readLessBtn = document.querySelector('.read-less')
 function paraResize() {
   paraHeight = para.offsetHeight
   if (paraHeight > 197) {
-    readLess() 
+    readLess()
   } else {
     para.style.height = 'auto'
     readMoreBtn.style.display = 'none'
