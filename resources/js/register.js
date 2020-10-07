@@ -133,9 +133,6 @@ function confirmPassword(input) {
 // Dob validation
 function validateDate(input) {
   let d = new Date() 
-  // console.log(d.getFullYear()) 
-  // console.log(d.getMonth() + 1) 
-  // console.log(d.getDate()) 
 
   let dateInput = input.value.split("-")
   let userYear = parseInt(dateInput[0])
@@ -164,18 +161,6 @@ function validateDate(input) {
   else {
     clearError(input)
   }
-
-  // if (userYear <= d.getFullYear() && 
-  // (userMonth <= d.getMonth()+1 || userMonth <= `0${d.getMonth()+1}`) && 
-  // (userDay <= d.getDate() || userDay <= `0${d.getDate()}`)) {
-  //   clearError(input)
-  // }
-  // else{
-  //   setError(input,'You are not born yet!')
-  // }
-
-
-  // console.log(`${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`) 
 
 }
 
