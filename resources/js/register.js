@@ -5,7 +5,7 @@ let passwordInput = document.querySelector('#password')  // password field
 let firstnameInput = document.querySelector('#firstname')  // First name field
 let lastnameInput = document.querySelector('#lastname') // Last name field
 let dateofbirthInput = document.querySelector('#dob') // date of birth field
-// dateofbirthInput.defaultValue = '2014-02-09'
+
 let dropdown = document.querySelector('select')  // Gender field
 let terms = document.querySelector('#termsAndConditions') // Terms and conditions
 let termsError = document.querySelector('#termsError')  // Terms and conditions error field
