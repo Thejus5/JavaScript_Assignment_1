@@ -2,7 +2,7 @@ import utils from './utils.js'
 import tableFn from "./table.js"
 
 let paraHeight
-let headerObj, contentObj
+
 
 
 /*--------------- Home page content loading section ---------------*/
@@ -12,7 +12,7 @@ const imageArea = document.querySelector('.image-area')
 utils.jsonCaller('get', 'resources/json/homepage.json', function (object) {
   para.textContent = object.content
   // let headerObj = object.table
-  headerObj = object.table
+  let headerObj = object.table
 
   const image = document.createElement('img')
   image.src = object.image
@@ -40,8 +40,7 @@ function loadTable(headerObj) {
 
     // Table content loading
     utils.jsonCaller("get", "resources/json/vacancies.json", function (object) {
-      contentObj = object
-      tableFn.tableBodyLoader(contentObj)
+      tableFn.tableBodyLoader(object)
     })
 
   }
