@@ -26,8 +26,6 @@ utils.jsonCaller('get', 'resources/json/homepage.json', function (object) {
 
 4
 /*--------------- Table loading section ---------------*/
-let tableHeader = document.querySelector("thead")
-let tableBody = document.querySelector('tbody')
 
 function loadTable(headerObj) {
 
