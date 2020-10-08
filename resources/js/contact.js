@@ -28,8 +28,8 @@ submitBtn.addEventListener('click', function () {
 
 function validateFields(fields) {
 
-  for (i = 0  i < fields.length  i++) {
-    var input = fields[i]
+  for (let each of fields) {
+    var input = each
     validate(input)
   }
 }
@@ -116,10 +116,10 @@ function countChar(input) {
 }
 
 
-for (i = 0  i < fields.length  i++) {
-  fields[i].addEventListener('blur', function (e) {
-    validate(e.target)
-  })
+for (let each of fields) {
+  each.addEventListener("blur", function (e) {
+    validate(e.target);
+  });
 }
 
 form.addEventListener('keydown', function (e) {
