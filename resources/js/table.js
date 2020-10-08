@@ -11,7 +11,7 @@ let tableHeadLoader = function (headerList) {
       let headElement = document.createElement("th")
 
       // Adding text content and data attribute to 'th' element
-      headElement.textContent = headValue.tittle
+      headElement.textContent = headValue.title
       headElement.setAttribute("data-type", headValue.type)
       headElement.setAttribute("data-sortable", headValue.sortable)
       headElement.id = headValue.id

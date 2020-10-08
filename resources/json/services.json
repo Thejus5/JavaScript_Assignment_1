@@ -1,25 +1,25 @@
 {
   "table": [
     {
-      "tittle": "Office",
+      "title": "Office",
       "sortable": true,
       "type": "string",
       "id": "office"
     },
     {
-      "tittle": "Address",
+      "title": "Address",
       "sortable": false,
       "type": "string",
       "id": "address"
     },
     {
-      "tittle": "Contact",
+      "title": "Contact",
       "sortable": false,
       "type": "number",
       "id": "contact"
     },
     {
-      "tittle": "Location",
+      "title": "Location",
       "sortable": false,
       "type": "link",
       "id": "location"

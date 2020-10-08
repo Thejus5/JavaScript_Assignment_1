@@ -4,31 +4,31 @@
   "image": "resources/images/main-image.jpg",
   "table": [
     {
-      "tittle": "Job Id",
+      "title": "Job Id",
       "sortable": true,
       "type": "number",
       "id": "jobId"
     },
     {
-      "tittle": "Job Tittle",
+      "title": "Job Title",
       "sortable": true,
       "type": "string",
-      "id": "jobTittle"
+      "id": "jobTitle"
     },
     {
-      "tittle": "Location",
+      "title": "Location",
       "sortable": false,
       "type": "link",
       "id": "location"
     },
     {
-      "tittle": "Last date",
+      "title": "Last Date",
       "sortable": true,
       "type": "date",
       "id": "lastDate"
     },
     {
-      "tittle": "Status",
+      "title": "Status",
       "sortable": false,
       "type": "button",
       "id": "status"
