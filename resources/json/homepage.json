@@ -1,5 +1,37 @@
 {
-  "headText":"Home",
-  "Content":"Lorem lpsum is simply dummy text of the printing and typesetting industry. Lorem lpsum has been the industry's standard dummy text ever since the 1500's,when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic typesetting,remaining 1960s with the release ofLetraset sheets containing lorem lpsum passages,and more recently with desktop publishing software like Aldus Pagemker including versions of lorem lpsum.Lorem lpsum is simply dummy text of the printing and typesetting industry. Lorem lpsum has been the industry's standard dummy text ever since the 1500's,when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic typesetting,remaining 1960s with the release ofLetraset sheets containing lorem lpsum passages,and more recently with desktop publishing software like Aldus Pagemker including versions of lorem lpsum.",
-  "image":"resources/images/main-image.jpg"
+  "headText": "Home",
+  "content": "Lorem lpsum is simply dummy text of the printing and typesetting industry. Lorem lpsum has been the industry's standard dummy text ever since the 1500's,when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic typesetting,remaining 1960s with the release ofLetraset sheets containing lorem lpsum passages,and more recently with desktop publishing software like Aldus Pagemker including versions of lorem lpsum.Lorem lpsum is simply dummy text of the printing and typesetting industry. Lorem lpsum has been the industry's standard dummy text ever since the 1500's,when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic typesetting,remaining 1960s with the release ofLetraset sheets containing lorem lpsum passages,and more recently with desktop publishing software like Aldus Pagemker including versions of lorem lpsum.",
+  "image": "resources/images/main-image.jpg",
+  "table": [
+    {
+      "title": "Job Id",
+      "sortable": true,
+      "type": "number",
+      "id": "jobId"
+    },
+    {
+      "title": "Job Title",
+      "sortable": true,
+      "type": "string",
+      "id": "jobTitle"
+    },
+    {
+      "title": "Location",
+      "sortable": false,
+      "type": "link",
+      "id": "location"
+    },
+    {
+      "title": "Last Date",
+      "sortable": true,
+      "type": "date",
+      "id": "lastDate"
+    },
+    {
+      "title": "Status",
+      "sortable": false,
+      "type": "button",
+      "id": "status"
+    }
+  ]
 }

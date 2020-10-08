@@ -1,0 +1,28 @@
+{
+  "table": [
+    {
+      "title": "Office",
+      "sortable": true,
+      "type": "string",
+      "id": "office"
+    },
+    {
+      "title": "Address",
+      "sortable": false,
+      "type": "string",
+      "id": "address"
+    },
+    {
+      "title": "Contact",
+      "sortable": false,
+      "type": "number",
+      "id": "contact"
+    },
+    {
+      "title": "Location",
+      "sortable": false,
+      "type": "link",
+      "id": "location"
+    }
+  ]
+}

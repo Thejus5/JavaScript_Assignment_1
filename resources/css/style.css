@@ -91,6 +91,10 @@ header h1{
   padding: 5px 8px;
 }
 
+#highlight{
+  background-color: aqua;
+}
+
 
 /*-------------------------*/
 /*------ CONTENTS ---------*/
@@ -159,7 +163,7 @@ nav ul li a:hover{
 .read-more,
 .read-less{ 
   margin-top: 20px;
-  display: none;
+  display: block;
 }
 
 .image-area{ 
@@ -181,23 +185,79 @@ table{
   text-align: left;
 }
 
+
 th{
+  position: relative;
   background-color: #6aa1b2;
-  padding: 5px 8px;
+  padding: 5px 10px 5px 8px;
   color: #fff;
+  text-align: center;
+}
+table th[data-sortable="true"],
+table th[data-sortable="true"]{
+  cursor: pointer;
 }
 
 td{
+  position: relative;
   background-color: #95e1f9;
-  padding: 5px 8px;
-  color: #fff;
+  padding: 10px 8px;
+  color: #000;
 }
 
 td:last-child{ text-align: center; }
+.header-div{
+  display: flex;
+}
+
+/* Arrow icons on tables */
+table th[data-sortable="true"] .up,
+table th[data-sortable="true"] .down {
+  visibility: visible;
+}
+table th.asc .up {
+  visibility: visible;
+}
+table th.asc .down {
+  visibility: hidden;
+}
+table th.des .up {
+  visibility: hidden;
+}
+table th.des .down {
+  visibility: visible;
+}
+
+.Arrow {
+  position: absolute;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.up {
+  top: 0;
+  right: 0;
+  margin-top: 5px;
+  margin-right: 5px;
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  bottom: 0;
+  right: 0;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
 
 table button,
 .read-more,
 .read-less{ padding: 5px;}
+
 
 /*---- Right Section -------*/
 .right-section{

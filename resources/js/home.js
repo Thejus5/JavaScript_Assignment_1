@@ -1,73 +1,91 @@
-import utils from './utils.js';
+import utils from './utils.js'
+import tableFn from "./table.js"
 
-var fromMenuObj
-var indexContentObj
-var paraHeight
+let paraHeight
 
 
-// Loading Contents for Homepage
-const contentRequest = new XMLHttpRequest()
+
+/*--------------- Home page content loading section ---------------*/
 const para = document.querySelector('#blog-paragraph')
 const imageArea = document.querySelector('.image-area')
 
-contentRequest.onload = function () {
-  if (this.status === 200) {
-    try {
-      indexContentObj = JSON.parse(this.responseText)
-      para.textContent = indexContentObj.Content
+utils.jsonCaller('get', 'resources/json/homepage.json', function (object) {
+  para.textContent = object.content
+  // let headerObj = object.table
+  let headerObj = object.table
 
-      const image = document.createElement('img')
-      image.src = indexContentObj.image
-      image.className += 'content-img';
-      imageArea.appendChild(image)
+  const image = document.createElement('img')
+  image.src = object.image
+  image.className += 'content-img'
+  imageArea.appendChild(image)
 
-      paraResize()
-      
-    } catch {
-      console.warn('JSON not parsed')
-    }
-  } else {
-    console.warn('File not found')
+  paraResize()
+  loadTable(headerObj)
+})
+
+
+4
+/*--------------- Table loading section ---------------*/
+
+function loadTable(headerObj) {
+
+  if (headerObj) {  // Checks whether a tale exist
+    let tableContainer = document.querySelector(".bottom-section")
+    const table = tableContainer.appendChild(document.createElement("table"))
+    table.appendChild(document.createElement("thead"))
+    table.appendChild(document.createElement("tbody"))
+
+    // Table header loading
+    tableFn.tableHeadLoader(headerObj)
+
+    // Table content loading
+    utils.jsonCaller("get", "resources/json/vacancies.json", function (contentList) {
+      tableFn.tableBodyLoader(contentList)
+    })
+
   }
 }
 
-contentRequest.open('get', 'resources/json/homepage.json')
-contentRequest.send()
-
-
-
-// Read more functionality based on paragraph height
-
+/*--------------- Paragraph resize and read more section ---------------*/
 const readMoreBtn = document.querySelector('.read-more')
 const readLessBtn = document.querySelector('.read-less')
+let heightThreshold = '198px'
 
-// Main resize function
-function paraResize(){
+
+function paraResize() {
   paraHeight = para.offsetHeight
-  if (paraHeight > 200) {
+  if (paraHeight > parseInt(heightThreshold)) {
     readLess();
   } else {
-    para.style.height = 'auto'
-    readMoreBtn.style.display = 'none'
-    readLessBtn.style.display = 'none'
+    para.style.height = "auto";
+    readMoreBtn.style.display = "none";
+    readLessBtn.style.display = "none";
   }
 }
 
-// Read less
-function readLess(){
-  para.style.height = '200px'
+// Read less__
+readLessBtn.addEventListener('click', function () {
+  para.style.height = heightThreshold
+  readMoreBtn.style.display = 'block'
+  readLessBtn.style.display = 'none'
+})
+
+function readLess() {
+  para.style.height = heightThreshold
   readMoreBtn.style.display = 'block'
   readLessBtn.style.display = 'none'
 }
 
-// Read more
-function readMore(){
+
+// Read more__
+readMoreBtn.addEventListener('click', function () {
   para.style.height = 'auto'
   readMoreBtn.style.display = 'none'
   readLessBtn.style.display = 'block'
-}
+})
 
-  
+
+
 
 
 

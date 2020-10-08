@@ -1,98 +1,91 @@
 import utils from './utils.js'
 
 window.onload = (event) => {
-  
   var obj;
 
-  menuLoader()
-  welcomeText()
+  menuLoader();
+  welcomeText();
+  searchFilter();
+  mobileMenuDropdown()
 
-  function welcomeText(){
-    var welcomeTextBox = document.querySelector('.welcome-text')
-    var logoutBtn = document.querySelector('.logout')
+  function welcomeText() {
+    var welcomeTextBox = document.querySelector(".welcome-text");
+    var logoutBtn = document.querySelector(".logout");
 
-    console.log("active")
-    welcomeTextBox.textContent = `Hi ${localStorage.getItem('loggedin')}`;
-    logoutBtn.addEventListener('click', function () {
-      localStorage.removeItem('loggedin')
-      location.href = '/login.html'
-    })
+    welcomeTextBox.textContent = `Hi ${localStorage.getItem("loggedin")}`;
+    logoutBtn.addEventListener("click", function () {
+      localStorage.removeItem("loggedin");
+      location.href = "/login.html";
+    });
   }
 
-  function menuLoader(){
-    console.log("active")
-    const menuList = document.querySelector('#nav-menus')
-    const header = document.querySelector('#page-heading')
+  function menuLoader() {
+    const menuList = document.querySelector("#nav-menus");
+    const header = document.querySelector("#page-heading");
 
-    utils.jsonCaller('get', 'resources/json/menu.json', function (menuObj) {
-
-      obj = menuObj
+    utils.jsonCaller("get", "resources/json/menu.json", function (menuObj) {
+      obj = menuObj;
       for (let menu of menuObj) {
-        let menuElements = createMenu(menu.label, menu.link, menu.status)
-        menuList.appendChild(menuElements)
-        createHeading(menu)
+        let menuElements = createMenu(menu.label, menu.link, menu.status);
+        menuList.appendChild(menuElements);
+        createHeading(menu);
       }
-    })
+    });
 
     // Event handling of menu
-    menuList.addEventListener('click', function (evt) {
-      let status = evt.target.getAttribute('data-status')
+    menuList.addEventListener("click", function (evt) {
+      let status = evt.target.getAttribute("data-status");
 
-      if (status == 'true') {
-        window.location.assign(evt.target.getAttribute('data-link'))
+      if (status == "true") {
+        window.location.assign(evt.target.getAttribute("data-link"));
+      } else {
+        window.location.assign("/404.html");
       }
-      else {
-        window.location.assign('/404.html')
-      }
-    })
-
+    });
 
     // Function for creating menu elements
     function createMenu(content, link, status) {
-      const menuElement = document.createElement('li');
-      const menuLink = document.createElement('a');
-      menuLink.href = '#';
-      menuLink.setAttribute('data-link', link)
-      menuLink.setAttribute('data-status', status)
-      menuLink.className += 'menu-link';
+      const menuElement = document.createElement("li");
+      const menuLink = document.createElement("a");
+      menuLink.href = "#";
+      menuLink.setAttribute("data-link", link);
+      menuLink.setAttribute("data-status", status);
+      menuLink.className += "menu-link";
       menuLink.textContent = content;
       menuElement.appendChild(menuLink);
       return menuElement;
     }
 
-
     // Function for setting heading
     function createHeading(input) {
-      let currentPath = location.pathname
+      let currentPath = location.pathname;
       if (currentPath == input.link) {
-        header.textContent = input.label
+        header.textContent = input.label;
       }
     }
   }
 
-
   // Blog post section
-  let postLists = document.querySelector('.posts')
-  utils.jsonCaller('get','resources/json/blogpost.json', function(blogObj){
-     for(let blog of blogObj){
-       let blogPost = createPost(blog.tittle, blog.image)
-       postLists.appendChild(blogPost)
-     }
-  })
-
+  let postLists = document.querySelector(".posts");
+  utils.jsonCaller("get", "resources/json/blogpost.json", function (blogObj) {
+    for (let blog of blogObj) {
+      let blogPost = createPost(blog.tittle, blog.image);
+      postLists.appendChild(blogPost);
+    }
+  });
 
   function createPost(tittle, imgLink) {
-    const postElement = document.createElement('li');
-    const postLink = document.createElement('a');
+    const postElement = document.createElement("li");
+    const postLink = document.createElement("a");
 
-    const postLinkDiv = document.createElement('div');
-    postLinkDiv.className += 'post-image-div';
+    const postLinkDiv = document.createElement("div");
+    postLinkDiv.className += "post-image-div";
 
-    const postText = document.createElement('p');
-    postText.className += 'post-info';
+    const postText = document.createElement("p");
+    postText.className += "post-info";
     postText.textContent = tittle;
 
-    const postImg = document.createElement('img');
+    const postImg = document.createElement("img");
     postImg.src = imgLink;
 
     postLinkDiv.appendChild(postText);
@@ -103,61 +96,43 @@ window.onload = (event) => {
     return postElement;
   }
 
-
-  //Table headings
-
-  const tableRequest = new XMLHttpRequest();
-
-  tableRequest.onload = function () {
-    if (this.status === 200) {
-      try {
-        const tableObj = JSON.parse(this.responseText);
-
-        // Add table headings
-        const tableHead = document.querySelector('#table-head');
-        const tableRow = document.createElement('tr');
-
-        for (i = 0; i < tableObj.heading.length; i++) {
-          const tableElement = document.createElement('th');
-          tableElement.textContent = tableObj.heading[i];
-
-          tableRow.appendChild(tableElement);
-
-          if (i == tableObj.heading.length - 1) {
-            tableHead.appendChild(tableRow);
-          }
-        }
-      } catch {
-        console.warn('JSON not parsed');
+  // Search filter
+  function searchFilter() {
+    const searchBar = document.querySelector("#search");
+    const mainPara = document.querySelector("#blog-paragraph");
+    let backupContent = mainPara.textContent;
+    // const mainPara = document.querySelector(".content")
+    searchBar.addEventListener("keyup", function () {
+      let value = searchBar.value;
+      let content = mainPara.textContent;
+      if (content.indexOf(value) != -1) {
+        mainPara.innerHTML = content.replaceAll(
+          value,
+          `<span id="highlight">${value}</span>`
+        );
+      } else {
+        mainPara.innerHTML = content;
       }
-    } else {
-      console.warn('File not found');
-    }
-  };
+    });
 
-  tableRequest.open('get', 'resources/json/table.json');
-  tableRequest.send();
-
-  //Debugging fn
-  function check() {
-    console.log('foo');
+    searchBar.addEventListener("search", function (e) {
+      mainPara.textContent = backupContent;
+    });
   }
 
-  // Dropdown button
-  // function dropDown() {
-  //   console.log('clicked');
-  // }
-
-  const dropDownButton = document.querySelector('.drop-down-button');
-  dropDownButton.addEventListener('click', function () {
-    const navigation = document.querySelector('.navigation');
-    if (navigation.style.display === 'none') {
-      navigation.style.display = 'block';
-    } else {
-      navigation.style.display = 'none';
-    }
-  });
+  // Drop down menu in mobile view
+  function mobileMenuDropdown() {
+    const dropDownButton = document.querySelector(".drop-down-button");
+    dropDownButton.addEventListener("click", function () {
+      const navigation = document.querySelector(".navigation");
+      if (navigation.style.display === "none") {
+        navigation.style.display = "block";
+      } else {
+        navigation.style.display = "none";
+      }
+    });
+  }
 }
 
-  
+
 

@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="resources/css/register.css">
+  <link rel="stylesheet" href="resources/css/responsive.css">
   <title>RMedia Login</title>
 </head>
+
 <body>
   <section class="login-body">
 
@@ -14,17 +17,18 @@
         <h1 class="login-head-text">Login</h1>
         <img src="resources/images/logo.jpg" alt="RMedia Logo" class="login-logo">
       </div>
-      
+
       <hr>
       <form class="login-form flex-box">
+        <p class="login-error"></p>
 
-        <div class="username-group flex-box">
+        <div class="group flex-box">
           <label for="username">Username</label>
           <input type="text" name="username" id="username">
           <p class="username-error"></p>
         </div>
 
-        <div class="password-group flex-box">
+        <div class="group flex-box">
           <label for="password">Password</label>
           <input type="password" name="password" id="password">
           <p class="password-error"></p>
@@ -34,10 +38,11 @@
         <a href="register.html">Not registered yet? Sign Up</a>
       </form>
     </div>
-    
+
   </section>
-  
+
   <script type="module" src="resources/js/utils.js"></script>
   <script type="module" src="resources/js/login.js"></script>
 </body>
+
 </html>

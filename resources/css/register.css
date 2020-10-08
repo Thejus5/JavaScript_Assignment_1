@@ -74,20 +74,17 @@ body{
   border-radius: 5px;
 }
 
-.username-group,
-.password-group,
-.firstname-group,
-.lastname-group,
-.dob-group,
-.gender-group,
-.password-group,
-.password-confirm-group{
+
+.group{
   margin-top: 10px;
   flex-direction: column;
 }
 
-.username-error,
-.password-error{ color: #ff0033;}
+
+.login-error{ 
+  color: #ff0033;
+  text-align: center;
+}
 
 #login-button{
   width: 25%;
@@ -120,7 +117,7 @@ body{
   margin-top: 30px;
   background-color:#fff;
   margin: 100px auto;
-  width: 40%;
+  width: 35%;
   box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
   height: auto;
 }
@@ -140,13 +137,14 @@ select{
 form p{text-align: right;}
 
 .display-box{
-  flex-direction: row;
+  flex-direction: column;
   margin: 0 10px;
   justify-content: space-between;
 }
 
 .display-box div{
-  width: 47%;
+  margin-top: 0;
+  width: 100%;
 }
 
 #register-button{
@@ -220,6 +218,39 @@ a{
   text-decoration: none;
   color: #000;
   background-color: #66c5e4;
+  padding: 10px 12px;
+  margin: 10px 0;
+}
+
+
+/* Index page popup */
+.index-popup{
+  flex-direction: column;
+  justify-content: space-around;
+  position: fixed;
+  padding: 30px;
+  top: 40%;
+  visibility: hidden;
+  left: 50%;
+  width: 500px;
+  transform: translate(-50%,-50%);
+  background-color: #95e2f9;
+}
+
+.index-popup-heading{
+  text-align: center;
+}
+
+.index-popup-image{
+  margin: 10px auto;
+  width: 100px;
+  height: auto;
+}
+
+.index-btn{
+  text-decoration: none;
+  color: #000;
+  background-color: #fff;
   padding: 10px 12px;
   margin: 10px 0;
 }

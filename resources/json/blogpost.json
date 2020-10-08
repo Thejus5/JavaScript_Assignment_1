@@ -1,8 +1,8 @@
 [
   {
-    "image":"resources/images/post-image.jpg",
-    "tittle":"Post",
-    "link":null
+    "image": "resources/images/post-image.jpg",
+    "tittle": "Post",
+    "link": null
   },
   {
     "image": "resources/images/post-image.jpg",
@@ -14,5 +14,4 @@
     "tittle": "Post",
     "link": null
   }
-
 ]

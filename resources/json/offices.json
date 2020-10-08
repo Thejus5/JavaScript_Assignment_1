@@ -1,0 +1,26 @@
+[
+  {
+    "office": "Office 1",
+    "address": "Building, Street, City",
+    "contact": "9876543201",
+    "location": "https://www.google.com"
+  },
+  {
+    "office": "Office 3",
+    "address": "Building, Street, City",
+    "contact": "9632587401",
+    "location": "https://www.google.com"
+  },
+  {
+    "office": "Office 5",
+    "address": "Building, Street, City",
+    "contact": "9514876230",
+    "location": "https://www.google.com"
+  },
+  {
+    "office": "Office 2",
+    "address": "Building, Street, City",
+    "contact": "7894561203",
+    "location": "https://www.google.com"
+  }
+]

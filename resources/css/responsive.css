@@ -10,6 +10,18 @@
   .post-image-div{
     transform: scale(0.8);
   }
+
+  .login-card{
+    margin: 100px auto;
+    width: 40%;
+    height: auto; 
+ }
+
+ .register-card{ 
+    margin: 80px auto;
+    width: 50%;
+    height: auto;
+ }
 }
 
 @media only screen and (max-width: 768px){
@@ -42,6 +54,9 @@
     width: 100%;
     margin: 0 auto;
   }
+
+  
+
 }
 
 @media only screen and (max-width: 420px){
@@ -65,4 +80,31 @@
   }
 
   .form{ width: 90%;}
+
+  .login-card{
+    margin: 100px auto;
+    width: 85%;
+    height: auto;
+ }
+
+ .display-box{
+    flex-direction: column;
+  }
+
+  .display-box div{
+    width: 100%;
+  }
+
+  .register-card{ 
+    margin: 80px auto;
+    width: 70%;
+    height: auto;
+ }
+
+ #register-button{
+   width: 90%;
+ }
+
+
+
 }

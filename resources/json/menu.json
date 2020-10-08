@@ -6,13 +6,13 @@
   },
   {
     "label": "About",
-    "status": true,
-    "link": "/about.html"
+    "status": false,
+    "link": null
   },
   {
     "label": "Services",
-    "status": false,
-    "link": null
+    "status": true,
+    "link": "/services.html"
   },
   {
     "label": "Contact",
