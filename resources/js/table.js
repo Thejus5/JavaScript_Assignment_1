@@ -49,12 +49,7 @@ function bindEventListener(tableHead) {
     let clickedId = header.id
 
     tableSort(header, function (newContentList) {
-
-      // Icons (up and down)
-      let upArrow = document.querySelector(`.${clickedId}UpArrow`)
-      let downArrow = document.querySelector(`.${clickedId}DownArrow`)
-
-
+      
       // determine current clicked header sort class name
       let nextOrder
       if (!header.className || header.className == "asc") {
@@ -153,7 +148,6 @@ let tableSort = function (header, callback) {
   }
   else {
     console.log('Not Sortable')
-    return
   }
 
 }
@@ -191,34 +185,6 @@ function clearHeaderSortClass() {
   const allHeaders = document.querySelectorAll("th")
   for (let th of allHeaders) {
     th.className = ""
-  }
-}
-
-
-
-// New table according to sort
-function newContentCreator(valueList, contentList, key, nextOrder) {
-  let tableBody = document.querySelector("tbody")
-  let tableHeader = document.querySelector("thead")
-
-  let newContentObj = []
-
-  for (let values of valueList) {
-    for (let content of contentList) {
-      if (values == content[key]) {
-        newContentObj.push(content)
-      }
-    }
-  }
-  removeChildNode(tableBody)
-  removeChildNode(tableHeader)
-  return newContentObj
-}
-
-// Remove table content
-function removeChildNode(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild)
   }
 }
 
