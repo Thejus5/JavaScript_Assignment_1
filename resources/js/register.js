@@ -133,33 +133,12 @@ function confirmPassword(input) {
 // Dob validation
 function validateDate(input) {
   let d = new Date() 
+  let userEnteredDate = new Date(input.value) 
 
-  let dateInput = input.value.split("-")
-  let userYear = parseInt(dateInput[0])
-  let userMonth = parseInt(dateInput[1])
-  let userDay = parseInt(dateInput[2])
-
-  if (userYear > d.getFullYear()) {
-    setError(input, "You are not born yet!")
-  }
-  else if (userYear == d.getFullYear()) {
-    if (userMonth > d.getMonth() + 1 || userMonth > `0${d.getMonth() + 1}`) {
-      setError(input, "You are not born yet!") 
-    }
-    else if (userMonth == d.getMonth() + 1 || userMonth == `0${d.getMonth() + 1}`) {
-      if (userDay >= d.getDate() || userDay >= `0${d.getDate()}`) {
-        setError(input, "You are not born yet!") 
-      }
-      else {
-        clearError(input)
-      }
-    }
-    else {
-      clearError(input)
-    }
-  }
-  else {
-    clearError(input)
+  if (userEnteredDate.getTime() > d.getTime()) {
+    setError(input, "You are not born yet!");
+  } else {
+    clearError(input);
   }
 
 }
