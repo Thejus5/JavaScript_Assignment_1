@@ -39,8 +39,8 @@ function loadTable(headerObj) {
     tableFn.tableHeadLoader(headerObj)
 
     // Table content loading
-    utils.jsonCaller("get", "resources/json/vacancies.json", function (object) {
-      tableFn.tableBodyLoader(object)
+    utils.jsonCaller("get", "resources/json/vacancies.json", function (contentList) {
+      tableFn.tableBodyLoader(contentList)
     })
 
   }
@@ -49,28 +49,29 @@ function loadTable(headerObj) {
 /*--------------- Paragraph resize and read more section ---------------*/
 const readMoreBtn = document.querySelector('.read-more')
 const readLessBtn = document.querySelector('.read-less')
+let heightThreshold = '198px'
 
 
 function paraResize() {
   paraHeight = para.offsetHeight
-  if (paraHeight > 197) {
-    readLess()
+  if (paraHeight > parseInt(heightThreshold)) {
+    readLess();
   } else {
-    para.style.height = 'auto'
-    readMoreBtn.style.display = 'none'
-    readLessBtn.style.display = 'none'
+    para.style.height = "auto";
+    readMoreBtn.style.display = "none";
+    readLessBtn.style.display = "none";
   }
 }
 
 // Read less__
 readLessBtn.addEventListener('click', function () {
-  para.style.height = '197px'
+  para.style.height = heightThreshold
   readMoreBtn.style.display = 'block'
   readLessBtn.style.display = 'none'
 })
 
 function readLess() {
-  para.style.height = '197px'
+  para.style.height = heightThreshold
   readMoreBtn.style.display = 'block'
   readLessBtn.style.display = 'none'
 }
