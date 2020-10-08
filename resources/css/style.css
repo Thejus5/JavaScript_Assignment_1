@@ -193,6 +193,10 @@ th{
   color: #fff;
   text-align: center;
 }
+table th[data-sortable="true"],
+table th[data-sortable="true"]{
+  cursor: pointer;
+}
 
 td{
   position: relative;

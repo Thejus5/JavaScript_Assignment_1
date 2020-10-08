@@ -20,10 +20,10 @@ let tableHeadLoader = function (headerList) {
       if (headValue.sortable == true) {
 
         let upArrow = document.createElement('i')
-        upArrow.className = 'up Arrow'
+        upArrow.className = `${headValue.id} up Arrow`
 
         let downArrow = document.createElement('i')
-        downArrow.className = 'down Arrow'
+        downArrow.className = `${headValue.id} down Arrow`;
 
         headElement.appendChild(upArrow)
         headElement.appendChild(downArrow)
@@ -47,25 +47,38 @@ function bindEventListener(tableHead) {
   tableHead.addEventListener("click", function (e) {
     let header = e.target
     let clickedId = header.id
-
-    tableSort(header, function (newContentList) {
-      
+    console.log(header)
+    filterIconClick(header, function (newHeader,newContentList) {
+      header = newHeader;
       // determine current clicked header sort class name
-      let nextOrder
+      let nextOrder;
       if (!header.className || header.className == "asc") {
-        nextOrder = "des"
-      }
-      else {
-        nextOrder = "asc"
+        nextOrder = "des";
+      } else {
+        nextOrder = "asc";
       }
 
       // reset all header sort classnames
-      clearHeaderSortClass()
-      header.className = nextOrder
+      clearHeaderSortClass();
+      header.className = nextOrder;
 
       // Table body (re)loading
-      redraw(newContentList)
-    })
+      redraw(newContentList);
+    });
+  })
+}
+
+//Filters out click on header icon
+function filterIconClick(header,callback){
+  if (!header.dataset.sortable) {
+    console.log(header.classList[0]);
+    let realHeader = document.querySelector(`#${header.classList[0]}`);
+    header = realHeader
+    console.log(realHeader)
+  }
+
+  tableSort(header,function(newContentList){
+      callback(header,newContentList);
   })
 }
 
@@ -131,24 +144,22 @@ function redraw(newContentList) {
 
 let tableSort = function (header, callback) {
 
-  if (header.dataset.sortable == 'true') {
-    let newContentList
-    const isNumber = header.dataset.type == "number"  // Checks if datatype is number or string
+    if (header.dataset.sortable == "true") {
+      let newContentList;
+      const isNumber = header.dataset.type == "number"; // Checks if datatype is number or string
 
-    if (!header.className || header.className == 'asc') {
-      newContentList = sortData(tableContent, header.id, isNumber)
-      // newContentList = 'check'
-    }
-    else if (header.className == 'des') {
-      newContentList = reverseData(tableContent, header.id, isNumber)
-      // newContentList = 'try'
-    }
+      if (!header.className || header.className == "asc") {
+        newContentList = sortData(tableContent, header.id, isNumber);
+        // newContentList = 'check'
+      } else if (header.className == "des") {
+        newContentList = reverseData(tableContent, header.id, isNumber);
+        // newContentList = 'try'
+      }
 
-    callback(newContentList)
-  }
-  else {
-    console.log('Not Sortable')
-  }
+      callback(newContentList);
+    } else {
+      console.log("Not Sortable");
+    }
 
 }
 
